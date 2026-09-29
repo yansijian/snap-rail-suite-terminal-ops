@@ -1,0 +1,10 @@
+node_modules/
+lib/
+lib-host/
+lib-client/
+dist/
+dist-plugins/
+*.tsbuildinfo
+*.private.pem
+release.private.pem
+release-out/

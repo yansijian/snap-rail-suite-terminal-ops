@@ -1,0 +1,37 @@
+name: release
+on:
+  push:
+    tags: ['v*']
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test
+      - name: pack (signed)
+        env:
+          SIGN_KEY: ${{ secrets.RELEASE_PRIVATE_PEM }}
+          KEY_ID: ${{ secrets.RELEASE_KEY_ID }}
+        run: |
+          echo "$SIGN_KEY" > release.private.pem
+          pnpm exec snap-rail-plugin pack . --out dist --sign-key release.private.pem --key-id "$KEY_ID" --publisher snap-rail
+          rm release.private.pem
+      - name: create release + upload
+        env:
+          FEED_TOKEN: ${{ secrets.FEED_TOKEN }}
+          ASSET: dist/@snap-rail__suite-terminal-ops.zip
+        run: |
+          curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases" \
+            -H "Authorization: token $FEED_TOKEN" -H "Content-Type: application/json" \
+            -d "{\"tag_name\":\"$GITHUB_REF_NAME\",\"name\":\"$GITHUB_REF_NAME\"}"
+          id=$(curl -sf "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases/tags/$GITHUB_REF_NAME" -H "Authorization: token $FEED_TOKEN" | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>console.log(JSON.parse(d).id))')
+          curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases/$id/assets?name=%40snap-rail__suite-terminal-ops.zip" \
+            -H "Authorization: token $FEED_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ASSET"
