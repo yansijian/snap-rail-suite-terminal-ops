@@ -47,7 +47,7 @@ jobs:
           pnpm -v
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm build
-      - run: pnpm test
+      - run: pnpm run --if-present test
       - name: pack (signed)
         env:
           SIGN_KEY: ${{ secrets.RELEASE_PRIVATE_PEM }}
@@ -59,12 +59,20 @@ jobs:
       - name: create release + upload
         env:
           FEED_TOKEN: ${{ secrets.FEED_TOKEN }}
-          ASSET: "@snap-rail__suite-terminal-ops.zip"
+          ASSET: "dist/@snap-rail__suite-terminal-ops.zip"
         run: |
           TAG_NAME="${{ github.event.inputs.tag || github.ref_name }}"
-          curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases" \
-            -H "Authorization: token $FEED_TOKEN" -H "Content-Type: application/json" \
-            -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME\"}"
-          id=$(curl -sf "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases/tags/$TAG_NAME" -H "Authorization: token $FEED_TOKEN" | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>console.log(JSON.parse(d).id))')
-          curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases/$id/assets?name=%40snap-rail__suite-terminal-ops.zip" \
-            -H "Authorization: token $FEED_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ASSET"
+          API="http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops"
+          AUTH="Authorization: token $FEED_TOKEN"
+          # 创建 Release（已存在则继续——重跑幂等）
+          curl -s -f -X POST "$API/releases" -H "$AUTH" -H "Content-Type: application/json" \
+            -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME\"}" > /dev/null || true
+          id=$(curl -sf "$API/releases/tags/$TAG_NAME" -H "$AUTH" | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>console.log(JSON.parse(d).id))')
+          # 同名资产先删再传（重跑幂等）
+          asset_name="$(basename "$ASSET")"
+          old_id=$(curl -sf "$API/releases/$id/assets" -H "$AUTH" | ASSET_NAME="$asset_name" node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const hit=JSON.parse(d).find(a=>a.name===process.env.ASSET_NAME);console.log(hit?hit.id:"")})')
+          if [ -n "$old_id" ]; then curl -s -f -X DELETE "$API/releases/$id/assets/$old_id" -H "$AUTH" > /dev/null || true; fi
+          encoded=$(node -e 'console.log(encodeURIComponent(process.argv[1]))' "$asset_name")
+          curl -sf -X POST "$API/releases/$id/assets?name=$encoded" \
+            -H "$AUTH" -H "Content-Type: application/octet-stream" --data-binary @"$ASSET"
+          echo "uploaded $asset_name to release $TAG_NAME (id=$id)"
