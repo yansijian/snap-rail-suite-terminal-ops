@@ -2,6 +2,11 @@ name: release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release 标签名（tag push 触发时自动为 v*；手动派发时显式给）'
+        required: false
 
 # 国内 runner 不走 marketplace（与 admin 仓 CI 同策略）：git clone 检出、
 # npmmirror 装 Node/pnpm，@snap-rail scope 走本机 Gitea npm（凭据注入 ~/.npmrc）。
@@ -56,9 +61,10 @@ jobs:
           FEED_TOKEN: ${{ secrets.FEED_TOKEN }}
           ASSET: @snap-rail__suite-terminal-ops.zip
         run: |
+          TAG_NAME="${{ github.event.inputs.tag || github.ref_name }}"
           curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases" \
             -H "Authorization: token $FEED_TOKEN" -H "Content-Type: application/json" \
-            -d "{\"tag_name\":\"$GITHUB_REF_NAME\",\"name\":\"$GITHUB_REF_NAME\"}"
-          id=$(curl -sf "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases/tags/$GITHUB_REF_NAME" -H "Authorization: token $FEED_TOKEN" | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>console.log(JSON.parse(d).id))')
+            -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME\"}"
+          id=$(curl -sf "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases/tags/$TAG_NAME" -H "Authorization: token $FEED_TOKEN" | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>console.log(JSON.parse(d).id))')
           curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases/$id/assets?name=%40snap-rail__suite-terminal-ops.zip" \
             -H "Authorization: token $FEED_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ASSET"
