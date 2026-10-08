@@ -59,7 +59,7 @@ jobs:
       - name: create release + upload
         env:
           FEED_TOKEN: ${{ secrets.FEED_TOKEN }}
-          ASSET: @snap-rail__suite-terminal-ops.zip
+          ASSET: "@snap-rail__suite-terminal-ops.zip"
         run: |
           TAG_NAME="${{ github.event.inputs.tag || github.ref_name }}"
           curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases" \
