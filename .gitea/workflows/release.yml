@@ -2,17 +2,40 @@ name: release
 on:
   push:
     tags: ['v*']
+
+# 国内 runner 不走 marketplace（与 admin 仓 CI 同策略）：git clone 检出、
+# npmmirror 装 Node/pnpm，@snap-rail scope 走本机 Gitea npm（凭据注入 ~/.npmrc）。
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
+      - name: Checkout
+        run: |
+          GIT_SERVER_URL="${GIT_SERVER_URL:-$GITHUB_SERVER_URL}"
+          git clone --depth 1 --branch "$GITHUB_REF_NAME" \
+            -c credential.helper='!f() { echo "username=${{ github.actor }}"; echo "password=${{ secrets.GITEA_TOKEN }}"; }; f' \
+            "$GIT_SERVER_URL/$GITHUB_REPOSITORY.git" .
+      - name: Node >= 24（镜像自带版本过低时从 npmmirror 二进制覆盖）
+        run: |
+          node -v || true
+          major=$(node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0)
+          if [ "${major:-0}" -lt 23 ]; then
+            ver=24.19.0
+            curl -fsSL -o /tmp/node.tar.xz "https://registry.npmmirror.com/-/binary/node/v${ver}/node-v${ver}-linux-x64.tar.xz"
+            if command -v sudo >/dev/null 2>&1; then S=sudo; else S=; fi
+            $S rm -rf /usr/local/lib/node_modules /usr/local/bin/node /usr/local/bin/npm /usr/local/bin/npx
+            $S tar -xJf /tmp/node.tar.xz --strip-components=1 -C /usr/local
+            hash -r
+          fi
+          node -v
+      - name: pnpm + 源凭据（国内源；@snap-rail 走本机 Gitea）
+        env:
+          FEED_TOKEN: ${{ secrets.FEED_TOKEN }}
+        run: |
+          npm config set registry https://registry.npmmirror.com
+          npm install -g pnpm@11.22.0
+          printf '//192.168.1.9:3000/api/packages/snap-rail/npm/:_authToken=%s\n' "$FEED_TOKEN" >> ~/.npmrc
+          pnpm -v
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm build
       - run: pnpm test
@@ -21,13 +44,13 @@ jobs:
           SIGN_KEY: ${{ secrets.RELEASE_PRIVATE_PEM }}
           KEY_ID: ${{ secrets.RELEASE_KEY_ID }}
         run: |
-          echo "$SIGN_KEY" > release.private.pem
+          printf '%s' "$SIGN_KEY" | base64 -d > release.private.pem
           pnpm exec snap-rail-plugin pack . --out dist --sign-key release.private.pem --key-id "$KEY_ID" --publisher snap-rail
           rm release.private.pem
       - name: create release + upload
         env:
           FEED_TOKEN: ${{ secrets.FEED_TOKEN }}
-          ASSET: dist/@snap-rail__suite-terminal-ops.zip
+          ASSET: @snap-rail__suite-terminal-ops.zip
         run: |
           curl -sf -X POST "http://192.168.1.9:3000/api/v1/repos/snap-rail/snap-rail-suite-terminal-ops/releases" \
             -H "Authorization: token $FEED_TOKEN" -H "Content-Type: application/json" \
