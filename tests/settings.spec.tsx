@@ -17,7 +17,6 @@ import { bootClient } from '@snap-rail/client-kernel'
 import { createClientRuntime } from '@snap-rail/framework-shadcn/runtime'
 import layoutPlugin from '../src/layout.tsx'
 import titlebarPlugin from '../src/chrome.tsx'
-import settingsStationPlugin from '@snap-rail/settings-station'
 import maintenancePlugin from '../src/maintenance.tsx'
 import productionPlugin from '../src/production.tsx'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -127,7 +126,7 @@ describe('production counting settings page', () => {
     document.body.append(element)
     const handle = await bootClient({ element, channel })
     const runtime = await createClientRuntime(handle, {
-      plugins: [layoutPlugin, titlebarPlugin, settingsStationPlugin, maintenancePlugin, productionPlugin],
+      plugins: [layoutPlugin, titlebarPlugin, maintenancePlugin, productionPlugin],
     })
     await flush()
 
