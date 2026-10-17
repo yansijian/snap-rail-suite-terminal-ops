@@ -23,7 +23,7 @@ importers:
         version: 0.1.0(@snap-rail/cordis@4.0.1)
       '@snap-rail/client-kernel':
         specifier: ^0.1.0
-        version: 0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)
+        version: 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)
       '@snap-rail/connection':
         specifier: ^0.1.0
         version: 0.1.0
@@ -37,17 +37,17 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/connection@0.1.0)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/store@0.1.0(@snap-rail/cordis@4.0.1))
       '@snap-rail/framework-shadcn':
-        specifier: ^0.1.3
-        version: 0.1.3(594407b111c55cce0798d4f2bca29e80)
+        specifier: ^0.2.0
+        version: 0.2.0(9efc3e41362e0b83796e440c4041c061)
       '@snap-rail/gateway':
         specifier: ^0.1.0
         version: 0.1.0(@snap-rail/cordis@4.0.1)
       '@snap-rail/plugin-kit':
-        specifier: ^0.1.0
-        version: 0.1.0(typescript@6.0.3)
+        specifier: ^0.2.0
+        version: 0.2.0(tsdown@0.22.14(typescript@6.0.3))
       '@snap-rail/plugin-sdk':
-        specifier: ^0.1.5
-        version: 0.1.5(@snap-rail/cordis@4.0.1)(typescript@6.0.3)
+        specifier: ^0.2.0
+        version: 0.2.0(@snap-rail/cordis@4.0.1)(tsdown@0.22.14(typescript@6.0.3))
       '@snap-rail/protocol':
         specifier: ^0.1.1
         version: 0.1.1
@@ -56,10 +56,10 @@ importers:
         version: 0.1.0(@snap-rail/cordis@4.0.1)
       '@snap-rail/settings-station':
         specifier: ^0.1.0
-        version: 0.1.0(f05e5a78bf173f952430424e60e88d9a)
+        version: 0.1.0(2efa520bda4eb3c274c94bc1debbbc1a)
       '@snap-rail/station-rpc':
         specifier: ^0.1.0
-        version: 0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
+        version: 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
       '@snap-rail/store':
         specifier: ^0.1.0
         version: 0.1.0(@snap-rail/cordis@4.0.1)
@@ -624,16 +624,16 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
-  '@snap-rail/app-boot@0.1.0':
-    resolution: {integrity: sha512-1asVDa0Uxf4dgTw5eb+FL+akxaab3fxWOitXXkX8HQMyoFgvmY0Vnln7EMtHImCuxe6hhrcBDm3XtK2fyFb7PQ==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fapp-boot/-/0.1.0/app-boot-0.1.0.tgz}
+  '@snap-rail/app-boot@0.1.2':
+    resolution: {integrity: sha512-BYtwkzlpwwntVLAfxuifJEAkX+F6tOpST/hm+v/H8jVIhyAQDY0IIbXtxDIVosdXRz6AKWqXDa9ABxzFTzu69g==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fapp-boot/-/0.1.2/app-boot-0.1.2.tgz}
     peerDependencies:
       '@snap-rail/audit': ^0.1.0
       '@snap-rail/cordis': ^4.0.1
       '@snap-rail/cordis-plugin-group': ^1.0.1
       '@snap-rail/cordis-plugin-include': ^1.0.6
       '@snap-rail/cordis-plugin-loader': ^1.0.2
-      '@snap-rail/gateway': ^0.1.0
-      '@snap-rail/protocol': ^0.1.0
+      '@snap-rail/gateway': ^0.1.1
+      '@snap-rail/protocol': ^0.1.1
       zod: ^4.4.3
 
   '@snap-rail/audit@0.1.0':
@@ -713,16 +713,37 @@ packages:
       react: '>=19'
       react-dom: '>=19'
 
+  '@snap-rail/framework-shadcn@0.2.0':
+    resolution: {integrity: sha512-z074mlR0WFqeekXtqgC6TsjuhJDmzRkdeE4ufUMUUSCFI/3gEIZaU/Fk9tnjllXLGBl0GFz+aXlVpszihG/a9g==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fframework-shadcn/-/0.2.0/framework-shadcn-0.2.0.tgz}
+    peerDependencies:
+      '@snap-rail/app-boot': ^0.1.2
+      '@snap-rail/client-kernel': ^0.1.0
+      '@snap-rail/connection': ^0.1.0
+      '@snap-rail/cordis': ^4.0.1
+      '@snap-rail/cordis-plugin-timer': ^1.1.3
+      '@snap-rail/equipment': ^0.1.0
+      '@snap-rail/protocol': ^0.1.1
+      '@snap-rail/station-rpc': ^0.1.0
+      react: '>=19'
+      react-dom: '>=19'
+
   '@snap-rail/gateway@0.1.0':
     resolution: {integrity: sha512-sGgaFYBfs3g4OIMlMDaqvQ7xqGKH8DFDaEo9znunP8DuoIjr7Q7X9sdR5097iqKMHDHrl8TiRfmjfVcDZaABRw==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fgateway/-/0.1.0/gateway-0.1.0.tgz}
     peerDependencies:
       '@snap-rail/cordis': ^4.0.1
 
-  '@snap-rail/plugin-kit@0.1.0':
-    resolution: {integrity: sha512-LwZyFDq+ntqRXRpAgG7J4vPaywUJqU3o9Eh8dq5uf9iFQRv0RC7o5jF10n2J4YSHFhQ9iskQOVwkk2p9zw10ag==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fplugin-kit/-/0.1.0/plugin-kit-0.1.0.tgz}
+  '@snap-rail/plugin-kit@0.1.4':
+    resolution: {integrity: sha512-6n+2iXHplmTFgbKrF7EmxDKQqSONbtPMETZqPvq//tKmrcunn3FwpAQusZAC5bYRfT3X52c4F+gnGaj3uYe9mQ==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fplugin-kit/-/0.1.4/plugin-kit-0.1.4.tgz}
+    peerDependencies:
+      tsdown: ^0.22.2
 
-  '@snap-rail/plugin-sdk@0.1.5':
-    resolution: {integrity: sha512-EpJE9ErGeFBzvnZvtJymn7/uOBxaI6dBgZiNE5uq7ncDosG75BcblHrK5nnTARILqh4k2Nu2fwpYotw9QKqKpA==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fplugin-sdk/-/0.1.5/plugin-sdk-0.1.5.tgz}
+  '@snap-rail/plugin-kit@0.2.0':
+    resolution: {integrity: sha512-oBfNqIcl2ikTKWo4lwn+bh/SyDqxdlmgKIa0aZSwqi6Lue9NBZwOSXC19k2uRLLJVUOx+zZc/eAJ03mS8bUXqw==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fplugin-kit/-/0.2.0/plugin-kit-0.2.0.tgz}
+    peerDependencies:
+      tsdown: ^0.22.2
+
+  '@snap-rail/plugin-sdk@0.2.0':
+    resolution: {integrity: sha512-0R7p4VR2eQVpepgyW3vaUd9wuHKNlkPstVxMTxLSpoYqSOaR8GFcyZkBWwmva9skbkoJUIQaOzYoM0hJKwNweQ==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Fplugin-sdk/-/0.2.0/plugin-sdk-0.2.0.tgz}
     hasBin: true
     peerDependencies:
       '@snap-rail/cordis': ^4.0.1
@@ -765,6 +786,9 @@ packages:
 
   '@snap-rail/util@0.1.1':
     resolution: {integrity: sha512-DseokH2AyF25bzjgY9ujqzQVP+bxsnYPLhb4nnRmcPN9TrBSmH5+8D9i9SNafeTk9EMHndJeE61fclL5BkPIaQ==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Futil/-/0.1.1/util-0.1.1.tgz}
+
+  '@snap-rail/util@0.1.2':
+    resolution: {integrity: sha512-zP8oftqRhk87weVol44ft06lHNmOjqPWz33tL/FtvS9vsM6qbYwXgwsX+wohgoSwIryXO0pRyQJdJNLrOpzcSw==, tarball: http://192.168.1.9:3000/api/packages/snap-rail/npm/%40snap-rail%2Futil/-/0.1.2/util-0.1.2.tgz}
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -1434,8 +1458,8 @@ packages:
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
 
-  source-map-js@1.2.1:
-    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+  source-map-js@1.2.2:
+    resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
   stackback@0.0.2:
@@ -2100,7 +2124,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5)':
+  '@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5)':
     dependencies:
       '@snap-rail/audit': 0.1.0(@snap-rail/cordis@4.0.1)
       '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
@@ -2108,35 +2132,24 @@ snapshots:
       '@snap-rail/cordis-plugin-include': 1.0.6(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)
       '@snap-rail/cordis-plugin-loader': 1.0.2(@snap-rail/cordis@4.0.1)
       '@snap-rail/gateway': 0.1.0(@snap-rail/cordis@4.0.1)
-      '@snap-rail/plugin-kit': 0.1.0(typescript@6.0.3)
+      '@snap-rail/plugin-kit': 0.1.4(tsdown@0.22.14(typescript@6.0.3))
       '@snap-rail/protocol': 0.1.1
+      '@snap-rail/util': 0.1.2
       fflate: 0.8.3
       js-yaml: 4.3.2
       zod: 4.6.5
     transitivePeerDependencies:
-      - '@arethetypeswrong/core'
-      - '@tsdown/css'
-      - '@tsdown/exe'
-      - '@typescript/native-preview'
-      - '@vitejs/devtools'
-      - '@volar/typescript'
-      - oxc-resolver
-      - publint
-      - tsx
-      - typescript
-      - unplugin-unused
-      - unrun
-      - vue-tsc
+      - tsdown
 
   '@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1)':
     dependencies:
       '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
 
-  '@snap-rail/client-kernel@0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)':
+  '@snap-rail/client-kernel@0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)':
     dependencies:
       '@snap-rail/connection': 0.1.0
       '@snap-rail/protocol': 0.1.1
-      '@snap-rail/station-rpc': 0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
+      '@snap-rail/station-rpc': 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
     transitivePeerDependencies:
@@ -2227,7 +2240,7 @@ snapshots:
       - sql.js
       - sqlite3
 
-  '@snap-rail/framework-shadcn@0.1.3(594407b111c55cce0798d4f2bca29e80)':
+  '@snap-rail/framework-shadcn@0.1.3(63fb07072478e119514c4380e0d887eb)':
     dependencies:
       '@radix-ui/react-checkbox': 1.3.11(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@radix-ui/react-collapsible': 1.1.20(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -2240,13 +2253,44 @@ snapshots:
       '@radix-ui/react-switch': 1.3.7(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@radix-ui/react-tabs': 1.1.21(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@radix-ui/react-tooltip': 1.2.16(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@snap-rail/client-kernel': 0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)
+      '@snap-rail/client-kernel': 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)
       '@snap-rail/connection': 0.1.0
       '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
       '@snap-rail/cordis-plugin-timer': 1.1.3(@snap-rail/cordis@4.0.1)
       '@snap-rail/equipment': 0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/connection@0.1.0)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/store@0.1.0(@snap-rail/cordis@4.0.1))
       '@snap-rail/protocol': 0.1.1
-      '@snap-rail/station-rpc': 0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
+      '@snap-rail/station-rpc': 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
+      class-variance-authority: 0.7.1
+      clsx: 2.1.1
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+      tailwind-merge: 3.7.0
+      zod: 4.6.5
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+
+  '@snap-rail/framework-shadcn@0.2.0(9efc3e41362e0b83796e440c4041c061)':
+    dependencies:
+      '@radix-ui/react-checkbox': 1.3.11(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-collapsible': 1.1.20(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-dialog': 1.1.23(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-label': 2.1.15(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-progress': 1.1.16(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-radio-group': 1.4.7(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-scroll-area': 1.2.18(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-slot': 1.3.3(@types/react@19.3.0)(react@19.3.0)
+      '@radix-ui/react-switch': 1.3.7(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-tabs': 1.1.21(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@radix-ui/react-tooltip': 1.2.16(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@snap-rail/app-boot': 0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5)
+      '@snap-rail/client-kernel': 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(zod@4.6.5)
+      '@snap-rail/connection': 0.1.0
+      '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
+      '@snap-rail/cordis-plugin-timer': 1.1.3(@snap-rail/cordis@4.0.1)
+      '@snap-rail/equipment': 0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/connection@0.1.0)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/store@0.1.0(@snap-rail/cordis@4.0.1))
+      '@snap-rail/protocol': 0.1.1
+      '@snap-rail/station-rpc': 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       react: 19.3.0
@@ -2263,58 +2307,38 @@ snapshots:
       '@snap-rail/protocol': 0.1.1
       zod: 4.6.5
 
-  '@snap-rail/plugin-kit@0.1.0(typescript@6.0.3)':
+  '@snap-rail/plugin-kit@0.1.4(tsdown@0.22.14(typescript@6.0.3))':
     dependencies:
-      '@snap-rail/util': 0.1.1
+      '@snap-rail/util': 0.1.2
       tsdown: 0.22.14(typescript@6.0.3)
       zod: 4.6.5
-    transitivePeerDependencies:
-      - '@arethetypeswrong/core'
-      - '@tsdown/css'
-      - '@tsdown/exe'
-      - '@typescript/native-preview'
-      - '@vitejs/devtools'
-      - '@volar/typescript'
-      - oxc-resolver
-      - publint
-      - tsx
-      - typescript
-      - unplugin-unused
-      - unrun
-      - vue-tsc
 
-  '@snap-rail/plugin-sdk@0.1.5(@snap-rail/cordis@4.0.1)(typescript@6.0.3)':
+  '@snap-rail/plugin-kit@0.2.0(tsdown@0.22.14(typescript@6.0.3))':
+    dependencies:
+      '@snap-rail/util': 0.1.2
+      tsdown: 0.22.14(typescript@6.0.3)
+      zod: 4.6.5
+
+  '@snap-rail/plugin-sdk@0.2.0(@snap-rail/cordis@4.0.1)(tsdown@0.22.14(typescript@6.0.3))':
     dependencies:
       '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
-      '@snap-rail/plugin-kit': 0.1.0(typescript@6.0.3)
+      '@snap-rail/plugin-kit': 0.2.0(tsdown@0.22.14(typescript@6.0.3))
       fflate: 0.8.3
       zod: 4.6.5
     transitivePeerDependencies:
-      - '@arethetypeswrong/core'
-      - '@tsdown/css'
-      - '@tsdown/exe'
-      - '@typescript/native-preview'
-      - '@vitejs/devtools'
-      - '@volar/typescript'
-      - oxc-resolver
-      - publint
-      - tsx
-      - typescript
-      - unplugin-unused
-      - unrun
-      - vue-tsc
+      - tsdown
 
   '@snap-rail/protocol@0.1.1':
     dependencies:
       '@snap-rail/util': 0.1.1
       zod: 4.6.5
 
-  '@snap-rail/settings-station@0.1.0(f05e5a78bf173f952430424e60e88d9a)':
+  '@snap-rail/settings-station@0.1.0(2efa520bda4eb3c274c94bc1debbbc1a)':
     dependencies:
       '@snap-rail/connection': 0.1.0
       '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
-      '@snap-rail/framework-shadcn': 0.1.3(594407b111c55cce0798d4f2bca29e80)
-      '@snap-rail/station-rpc': 0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
+      '@snap-rail/framework-shadcn': 0.1.3(63fb07072478e119514c4380e0d887eb)
+      '@snap-rail/station-rpc': 0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)
       react: 19.3.0
     transitivePeerDependencies:
       - '@snap-rail/app-boot'
@@ -2334,9 +2358,9 @@ snapshots:
     dependencies:
       '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
 
-  '@snap-rail/station-rpc@0.1.0(@snap-rail/app-boot@0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)':
+  '@snap-rail/station-rpc@0.1.0(@snap-rail/app-boot@0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5))(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(@snap-rail/settings@0.1.0(@snap-rail/cordis@4.0.1))(zod@4.6.5)':
     dependencies:
-      '@snap-rail/app-boot': 0.1.0(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(typescript@6.0.3)(zod@4.6.5)
+      '@snap-rail/app-boot': 0.1.2(@snap-rail/audit@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-group@1.0.1(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1))(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)(@snap-rail/cordis@4.0.1)(@snap-rail/gateway@0.1.0(@snap-rail/cordis@4.0.1))(@snap-rail/protocol@0.1.1)(tsdown@0.22.14(typescript@6.0.3))(zod@4.6.5)
       '@snap-rail/audit': 0.1.0(@snap-rail/cordis@4.0.1)
       '@snap-rail/cordis': 4.0.1(@snap-rail/cordis-plugin-include@1.0.6)(@snap-rail/cordis-plugin-loader@1.0.2)
       '@snap-rail/gateway': 0.1.0(@snap-rail/cordis@4.0.1)
@@ -2418,6 +2442,8 @@ snapshots:
       - sqlite3
 
   '@snap-rail/util@0.1.1': {}
+
+  '@snap-rail/util@0.1.2': {}
 
   '@standard-schema/spec@1.1.0': {}
 
@@ -2787,7 +2813,7 @@ snapshots:
     dependencies:
       nanoid: 3.3.19
       picocolors: 1.1.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   pretty-format@27.0.2:
     dependencies:
@@ -2875,7 +2901,7 @@ snapshots:
 
   siginfo@2.0.0: {}
 
-  source-map-js@1.2.1: {}
+  source-map-js@1.2.2: {}
 
   stackback@0.0.2: {}
 
