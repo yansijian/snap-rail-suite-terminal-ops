@@ -11,7 +11,7 @@
  */
 
 import { Context, type Plugin } from '@snap-rail/cordis'
-import { LogOut, Minus, Settings, Square, X } from 'lucide-react'
+import { Disc, LogOut, Minus, PanelRight, Settings, Square, X } from 'lucide-react'
 import { Fragment, useState, type ReactNode } from 'react'
 import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, useRefresh } from '@snap-rail/framework-shadcn/ui'
 import '@snap-rail/framework-shadcn/slots'
@@ -45,6 +45,7 @@ function LogoMark(): ReactNode {
 function Titlebar(props: {
   ctx: Context
   control: (action: Action) => void
+  presentSurface: (surface: 'ball' | 'panel') => void
 }): ReactNode {
   const [confirming, setConfirming] = useState(false)
   // Slot-changed keeps the shell.titlebar.actions region (forge's AI button) live.
@@ -86,6 +87,28 @@ function Titlebar(props: {
           {props.ctx.uiSlots.list(UI_SLOT_IDS.titlebarActions).map(occupant => (
             <Fragment key={occupant.id}>{occupant.render()}</Fragment>
           ))}
+          {/* The auxiliary surfaces are operator-reachable from here: a
+           * renderer may ask the Shell to bring a window up, and `present` is
+           * idempotent (already on screen → no-op), so these are plain toggles
+           * into existence rather than stateful switches. */}
+          <Button
+            variant="ghost"
+            aria-label="悬浮面板"
+            title="悬浮面板（失焦自动收起）"
+            className="h-full w-14 rounded-none px-0"
+            onClick={() => props.presentSurface('panel')}
+          >
+            <PanelRight className="h-5 w-5" />
+          </Button>
+          <Button
+            variant="ghost"
+            aria-label="悬浮球"
+            title="悬浮球（可拖动，点击球心回主窗口）"
+            className="h-full w-14 rounded-none px-0"
+            onClick={() => props.presentSurface('ball')}
+          >
+            <Disc className="h-5 w-5" />
+          </Button>
           <Button
             variant="ghost"
             aria-label="设置"
@@ -149,11 +172,16 @@ const titlebarPlugin: Plugin.Object<void> = {
     const control = (action: Action): void => {
       void ctx.client.link.call('window.control', { action }).catch(() => {})
     }
+    // Auxiliary-surface control rides the Shell wire contract (no Electron
+    // here): the Shell creates the window on first present and keeps it.
+    const presentSurface = (surface: 'ball' | 'panel'): void => {
+      void ctx.client.link.call('shell.surface.present', { surface }).catch(() => {})
+    }
     ctx.uiSlots.register(ctx, UI_SLOT_IDS.titlebar, {
       id: 'chrome',
       order: 0,
       render(): ReactNode {
-        return <Titlebar ctx={ctx} control={control} />
+        return <Titlebar ctx={ctx} control={control} presentSurface={presentSurface} />
       },
     })
   },

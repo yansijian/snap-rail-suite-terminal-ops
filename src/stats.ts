@@ -31,10 +31,13 @@ import { desc, eq, lt, sql } from 'drizzle-orm'
 import { pointKey } from '@snap-rail/equipment'
 import type { GatewayService } from '@snap-rail/gateway'
 import type { SettingsService } from '@snap-rail/settings'
+import type { ShellService } from '@snap-rail/shell'
+import type { BallTone } from '@snap-rail/shell/contract'
 import '@snap-rail/store'
 import {
   COUNT_BINDING_KEY,
   DEFAULT_COUNT_BINDING,
+  SHIFT_CAPTION,
   countBindingSchema,
   productionContract,
   type CountBinding,
@@ -47,6 +50,13 @@ import { PRODUCTION_SCHEMA, anchor, hours, shifts } from './tables.ts'
 
 /** Settings key holding the signed-on operator (same source as station-rpc). */
 const OPERATOR_KEY = 'session.operatorId'
+
+/** Tray rows this face contributes: the ball toggle and the handover ack. */
+const BALL_TRAY_ID = 'ball'
+const HANDOVER_TRAY_ID = 'handover'
+
+/** The coalescing tag of the handover toast (a repeat replaces the earlier one). */
+const HANDOVER_TAG = 'shift-handover'
 
 /** How many shift rows / hour buckets the snapshot carries. */
 const SHIFT_ROW_LIMIT = 9
@@ -94,6 +104,9 @@ const productionStatsPlugin: Plugin.Object<ProductionStatsConfig> = {
     rpc.claimDomain(ctx, 'production')
     rpc.serveContract(ctx, productionContract, {})
     const settings: SettingsService = ctx.settings
+    // The OS seam is optional: a headless or test host mounts no Shell
+    // adapter, and the counter must keep counting without a tray or a toast.
+    const shell = ctx.get('shell') as ShellService | undefined
     const store = ctx.store.register(ctx, 'production_stats', PRODUCTION_SCHEMA)
 
     // All mutable state rides this apply-scope closure (the uiSlots lesson:
@@ -108,6 +121,52 @@ const productionStatsPlugin: Plugin.Object<ProductionStatsConfig> = {
     /** Hour deltas accumulated since the last flush. */
     const hourDeltas = new Map<number, number>()
     let dirty = false
+    /** Whether the operator acknowledged the current shift handover. */
+    let handoverAcked = false
+    /** The last ball state pushed to the Shell (change-only: one frame per second
+     * of identical state would be noise in every window). */
+    let ballLabel: string | null = null
+    let ballTone: BallTone = 'neutral'
+
+    /** Whether the floating ball is on screen (the tray toggle mirrors it). */
+    const ballVisible = (): boolean =>
+      shell?.surface.state().find(state => state.surface === 'ball')?.visible ?? false
+
+    /** Re-apply the tray rows' checked state from live truth. */
+    const refreshTray = (): void => {
+      if (shell === undefined) return
+      shell.tray.updateItem(ctx, BALL_TRAY_ID, { checked: ballVisible() })
+      shell.tray.updateItem(ctx, HANDOVER_TRAY_ID, { checked: handoverAcked })
+    }
+
+    /** Push the count into the host-aggregated ball state (the default orb and
+     * any other surface read it; this package's own ball face draws itself). */
+    const pushBall = (): void => {
+      if (shell === undefined) return
+      const label = session === null ? null : String(Math.floor(count))
+      const tone: BallTone = session === null ? 'neutral' : 'accent'
+      if (label === ballLabel && tone === ballTone) return
+      ballLabel = label
+      ballTone = tone
+      shell.ball.setState(ctx, { label, tone })
+    }
+
+    /** Announce a shift handover: an **actionable** notification, because the
+     * acknowledge is a real host-face act (it clears the tray reminder) and the
+     * click arrives long after this call returned. */
+    const announceHandover = (previousCount: number, shiftKey: string): void => {
+      if (shell === undefined) return
+      handoverAcked = false
+      refreshTray()
+      const shift = shiftOfKey(shiftKey)
+      const raised = shell.notify(ctx, {
+        title: '班次交接',
+        body: `上一班累计 ${previousCount} 件；${shift === undefined ? '本班' : SHIFT_CAPTION[shift]} 从 0 开始计数。`,
+        tag: HANDOVER_TAG,
+        actions: [{ id: 'ack', label: '确认交接' }],
+      })
+      if (!raised.applied) ctx.logger('production-stats').warn(`班次交接通知未投递：${raised.message}`)
+    }
 
     const adoptBinding = (value: unknown): void => {
       const parsed = countBindingSchema.safeParse(value)
@@ -238,16 +297,25 @@ const productionStatsPlugin: Plugin.Object<ProductionStatsConfig> = {
     const tick = (): void => {
       if (dirty) flush()
       rpc.broadcast('production/stats-changed', snapshot())
+      pushBall()
     }
 
     const login = (operator: string): void => {
       const loginAt = Date.now()
+      const previous = session
+      const previousCount = Math.floor(count)
       session = { operator, loginAt, shiftKey: shiftKeyOf(loginAt) }
       // A row for this shift continues (shift handover); a fresh shift
       // simply starts from the device's current value.
       loadShiftRow(session.shiftKey)
       dirty = true
       tick()
+      // Handover = a live session moved into another shift bucket. A boot
+      // restore has no previous session, and a re-login inside one shift is
+      // not a handover.
+      if (previous !== null && previous.shiftKey !== session.shiftKey) {
+        announceHandover(previousCount, session.shiftKey)
+      }
     }
 
     const logout = (): void => {
@@ -317,6 +385,47 @@ const productionStatsPlugin: Plugin.Object<ProductionStatsConfig> = {
     })
 
     ctx.interval(tick, config.flushMs)
+
+    // ---- OS surface: two tray rows and the handover acknowledge. All of it
+    // rides the Shell seam — this package never imports Electron, and every
+    // contribution is disposed with this fiber (owning context = cleanup). ----
+    if (shell !== undefined) {
+      const trayKeyOf = (id: string): string => `${ctx.fiber.name}:${id}`
+      ctx.effect(() => {
+        const ballRow = shell.tray.addItem(ctx, { id: BALL_TRAY_ID, label: '悬浮球', checked: false })
+        if (!ballRow.applied) ctx.logger('production-stats').warn(`托盘项「悬浮球」未创建：${ballRow.message}`)
+        const handoverRow = shell.tray.addItem(ctx, { id: HANDOVER_TRAY_ID, label: '本班已交接', checked: false })
+        if (!handoverRow.applied) ctx.logger('production-stats').warn(`托盘项「本班已交接」未创建：${handoverRow.message}`)
+
+        const dropSurface = ctx.on('shell/surface-changed', state => {
+          if (state.surface === 'ball') refreshTray()
+        })
+        const dropTray = ctx.on('shell/tray-clicked', key => {
+          if (key === trayKeyOf(BALL_TRAY_ID)) {
+            // One toggle, two directions: show it if it is away, put it away
+            // if it is up — the tray row stays the single affordance.
+            if (ballVisible()) shell.surface.hide(ctx, 'ball')
+            else shell.surface.present(ctx, 'ball')
+            refreshTray()
+            return
+          }
+          if (key === trayKeyOf(HANDOVER_TRAY_ID)) {
+            handoverAcked = !handoverAcked
+            refreshTray()
+          }
+        })
+        const dropAction = ctx.on('shell/notification-action', (_id, actionId) => {
+          if (actionId !== 'ack') return
+          handoverAcked = true
+          refreshTray()
+        })
+        return () => {
+          dropSurface()
+          dropTray()
+          dropAction()
+        }
+      })
+    }
 
     // Best-effort final flush when the host tree unloads (the store's own
     // fiber disposes after this one — reverse mount order).

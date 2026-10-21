@@ -19,6 +19,14 @@ export * from './theory.ts'
 /** The three eight-hour shifts: 8–16 早班, 16–24 中班, 0–8 晚班. */
 export type ShiftName = 'morning' | 'middle' | 'night'
 
+/** Display caption per shift — one source for the pages, the orb, the panel,
+ * and the host counter's notifications. */
+export const SHIFT_CAPTION: Readonly<Record<ShiftName, string>> = {
+  morning: '早班',
+  middle: '中班',
+  night: '晚班',
+}
+
 /** Window bounds per shift (local wall-clock hours), for display. */
 export const SHIFT_WINDOWS: Readonly<Record<ShiftName, { startHour: number, endHour: number }>> = {
   morning: { startHour: 8, endHour: 16 },

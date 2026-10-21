@@ -1,7 +1,7 @@
 {
   "name": "@snap-rail/suite-terminal-ops",
   "description": "The terminal-ops business suite: one package, one toggle — the whole renderer face of one industrial scenario (station layout + chrome + five process pages + counting settings) and its host-side shift counter (./stats, the durable production_stats store), snapRail.kind = suite",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "main": "lib/stats.js",
   "types": "lib/types/stats.d.ts",
@@ -27,7 +27,7 @@
     "pack": "snap-rail-plugin pack . --out dist"
   },
   "dependencies": {
-    "@snap-rail/util": "^0.1.1",
+    "@snap-rail/util": "workspace:*",
     "drizzle-orm": "^0.45.2",
     "zod": "^4.4.3"
   },
@@ -40,26 +40,28 @@
     "@snap-rail/gateway": "^0.1.0",
     "@snap-rail/protocol": "^0.1.1",
     "@snap-rail/settings": "^0.1.0",
+    "@snap-rail/shell": "^0.1.0",
     "@snap-rail/station-rpc": "^0.1.0",
     "@snap-rail/store": "^0.1.0",
     "react": ">=19"
   },
   "devDependencies": {
-    "@snap-rail/audit": "^0.1.0",
-    "@snap-rail/client-kernel": "^0.1.0",
-    "@snap-rail/connection": "^0.1.0",
-    "@snap-rail/cordis": "^4.0.1",
-    "@snap-rail/cordis-plugin-timer": "^1.1.3",
-    "@snap-rail/equipment": "^0.1.0",
+    "@snap-rail/audit": "workspace:*",
+    "@snap-rail/client-kernel": "workspace:*",
+    "@snap-rail/connection": "workspace:*",
+    "@snap-rail/cordis": "workspace:*",
+    "@snap-rail/cordis-plugin-timer": "workspace:*",
+    "@snap-rail/equipment": "workspace:*",
     "@snap-rail/framework-shadcn": "^0.2.0",
-    "@snap-rail/gateway": "^0.1.0",
-    "@snap-rail/plugin-kit": "^0.2.0",
-    "@snap-rail/plugin-sdk": "^0.2.0",
-    "@snap-rail/protocol": "^0.1.1",
-    "@snap-rail/settings": "^0.1.0",
-    "@snap-rail/station-rpc": "^0.1.0",
-    "@snap-rail/store": "^0.1.0",
-    "@snap-rail/store-sqlite": "^0.1.0",
+    "@snap-rail/gateway": "workspace:*",
+    "@snap-rail/plugin-kit": "workspace:*",
+    "@snap-rail/plugin-sdk": "workspace:*",
+    "@snap-rail/protocol": "workspace:*",
+    "@snap-rail/settings": "workspace:*",
+    "@snap-rail/shell": "workspace:*",
+    "@snap-rail/station-rpc": "workspace:*",
+    "@snap-rail/store": "workspace:*",
+    "@snap-rail/store-sqlite": "workspace:*",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.1.0",
     "@types/react": "^19.2.14",
@@ -79,10 +81,15 @@
     "requires": [
       "@snap-rail/framework-shadcn@^0.2",
       "@snap-rail/equipment",
-      "service:store"
+      "service:store",
+      "service:shell"
     ],
     "client": {
-      "entry": "lib-client/client.js"
+      "entry": "lib-client/client.js",
+      "surfaces": {
+        "ball": "lib-client/ball.js",
+        "panel": "lib-client/panel.js"
+      }
     },
     "title": "生产作业套件"
   }
