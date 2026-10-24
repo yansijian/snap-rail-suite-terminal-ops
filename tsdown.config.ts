@@ -30,10 +30,9 @@ export default defineConfig([
     external: [/\.(png|jpe?g|webp|gif|svg)$/, /\.css$/],
   },
   // One bundle per window. The main surface registers as the package itself;
-  // the auxiliary surfaces register as `<package>/ball` / `<package>/panel` and
-  // emit beside the main bundle (`lib-client/ball.js`, `lib-client/panel.js`) —
-  // the files `snapRail.client.surfaces` points at.
+  // the auxiliary surface registers as `<package>/ball` and emits beside the
+  // main bundle (`lib-client/ball.js`) — the file `snapRail.client.surfaces`
+  // points at.
   clientBundle('@snap-rail/suite-terminal-ops', 'src/index.tsx'),
   clientBundle('@snap-rail/suite-terminal-ops/ball', 'src/ball.tsx', { outName: 'ball' }),
-  clientBundle('@snap-rail/suite-terminal-ops/panel', 'src/panel.tsx', { outName: 'panel' }),
 ])

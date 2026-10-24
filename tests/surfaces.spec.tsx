@@ -1,10 +1,11 @@
 // @vitest-environment happy-dom
 /**
- * The suite's auxiliary-surface faces: a ball window renders the shift count
- * from the host-aggregated frame (never from an equipment point), and the
- * panel offers the two actions a satellite window needs. This is the whole
- * chain in one place — surface-aware runtime, the `shell.ball`/`shell.panel`
- * slots, the frame projection, and the wire calls back to the Shell.
+ * The suite's auxiliary-surface face: the ball window renders the shift count
+ * from the host-aggregated frame (never from an equipment point), follows the
+ * dock state with a compact tucked tab, and summons the operator window on
+ * click. This is the whole chain in one place — surface-aware runtime, the
+ * `shell.ball` slot, the frame projection, and the wire calls back to the
+ * Shell.
  *
  * @module snap-rail/suite-terminal-ops/tests/surfaces.spec
  */
@@ -21,7 +22,6 @@ import { bootClient } from '@snap-rail/client-kernel'
 import type { HostChannel } from '../../connection/src/index.tsx'
 import { createClientRuntime } from '@snap-rail/framework-shadcn/runtime'
 import ballPlugin from '../src/ball.tsx'
-import panelPlugin from '../src/panel.tsx'
 import { afterEach, describe, expect, it } from 'vitest'
 
 const contexts: Context[] = []
@@ -104,42 +104,30 @@ describe('the suite ball face', () => {
     document.querySelector<HTMLButtonElement>('button')!.click()
     await flush()
     expect(sent).toContainEqual({ method: 'shell.surface.present', payload: { surface: 'main' } })
+    // The face follows the dock state with the same wire (free-floating here).
+    expect(sent).toContainEqual({ method: 'shell.ball.dock', payload: {} })
 
     await runtime.dispose()
     element.remove()
   }, 20_000)
-})
 
-describe('the suite panel face', () => {
-  it('lists the recent hours and can put itself away', async () => {
+  it('draws the tucked tab while the ball is parked and collapsed', async () => {
     const { host, channel } = await makeWorld()
-    const sent: Array<{ method?: unknown, payload?: unknown }> = []
-    const spying: HostChannel = {
-      invoke: async request => {
-        sent.push({ method: request.method, payload: request.payload })
-        return channel.invoke(request)
-      },
-      openStream: channel.openStream,
-    }
     const element = document.createElement('div')
     document.body.append(element)
-    const handle = await bootClient({ element, channel: spying, surface: 'panel' })
-    const runtime = await createClientRuntime(handle, { plugins: [panelPlugin], surface: 'panel' })
-    // Let the face's subscription land first: the host re-broadcasts every
-    // flush cycle, so a panel opened between cycles simply waits for the next.
+    const handle = await bootClient({ element, channel, surface: 'ball' })
+    const runtime = await createClientRuntime(handle, { plugins: [ballPlugin], surface: 'ball' })
     await flush()
     host.rpc.broadcast('production/stats-changed', SNAPSHOT)
+    // Park the ball on the right edge, tucked to its visible third.
+    host.rpc.broadcast('shell/ball-dock-changed', { edge: 'right', collapsed: true, visiblePx: 43 })
     await flush()
 
-    expect(document.body.textContent).toContain('班产')
-    expect(document.body.textContent).toContain('128')
-    expect(document.body.textContent).toContain('近三小时')
-
-    const hide = [...document.querySelectorAll<HTMLButtonElement>('button')].find(button => button.textContent === '收起')
-    expect(hide).toBeDefined()
-    hide!.click()
-    await flush()
-    expect(sent).toContainEqual({ method: 'shell.surface.hide', payload: { surface: 'panel' } })
+    // The tab replaces the cropped orb and keeps the summon affordance.
+    expect(document.body.textContent).toContain('早班')
+    const summon = [...document.querySelectorAll<HTMLButtonElement>('button')]
+      .find(button => button.title === '打开主窗口')
+    expect(summon).toBeDefined()
 
     await runtime.dispose()
     element.remove()

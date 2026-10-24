@@ -19,7 +19,7 @@ export * from './theory.ts'
 /** The three eight-hour shifts: 8–16 早班, 16–24 中班, 0–8 晚班. */
 export type ShiftName = 'morning' | 'middle' | 'night'
 
-/** Display caption per shift — one source for the pages, the orb, the panel,
+/** Display caption per shift — one source for the pages, the orb,
  * and the host counter's notifications. */
 export const SHIFT_CAPTION: Readonly<Record<ShiftName, string>> = {
   morning: '早班',
@@ -36,6 +36,29 @@ export const SHIFT_WINDOWS: Readonly<Record<ShiftName, { startHour: number, endH
 
 /** Settings key holding the counting point's address in settings.json. */
 export const COUNT_BINDING_KEY = 'production.countBinding'
+
+/** Settings key choosing what closing the client does: `ball` parks into the
+ * floating ball, `tray` hides behind the tray icon, `ask` holds the close and
+ * lets this suite's own dialog ask. */
+export const CLOSE_ACTION_KEY = 'terminal.closeAction'
+
+/** Settings key choosing whether the tray's 退出 row asks before quitting. */
+export const CONFIRM_QUIT_KEY = 'terminal.confirmQuit'
+
+/** The close actions the suite's settings page offers. */
+export const CLOSE_ACTIONS = ['ball', 'tray', 'ask'] as const
+
+/** One close action. */
+export type CloseAction = (typeof CLOSE_ACTIONS)[number]
+
+/** The close action used while settings.json carries none. */
+export const DEFAULT_CLOSE_ACTION: CloseAction = 'ball'
+
+/** Whether the tray's 退出 asks before quitting, by default. */
+export const DEFAULT_CONFIRM_QUIT = true
+
+/** Consumer-side validation of a persisted close action. */
+export const closeActionSchema = z.enum(CLOSE_ACTIONS)
 
 /** The counting binding as persisted in settings.json: the same
  * (device, group, name) triple that addresses field points. */

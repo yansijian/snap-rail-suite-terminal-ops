@@ -19,11 +19,13 @@ import { type Plugin } from '@snap-rail/cordis'
 import { z } from 'zod'
 import chromePlugin from './chrome.tsx'
 import downtimePlugin from './downtime.tsx'
+import exitPromptPlugin from './exit-prompt.tsx'
 import faultPlugin, { faultConfigSchema } from './fault.tsx'
 import layoutPlugin from './layout.tsx'
 import maintenancePlugin from './maintenance.tsx'
 import productionPlugin, { productionConfigSchema } from './production.tsx'
 import samplingPlugin, { samplingConfigSchema } from './sampling.tsx'
+import windowSettingsPlugin from './window-settings.tsx'
 
 /** The suite's config fans out to the members that take one; each member's
  * own schema applies its defaults when the suite row omits the section. */
@@ -47,6 +49,10 @@ const suitePlugin: Plugin.Object<SuiteConfig> = {
     ctx.plugin(samplingPlugin, samplingConfigSchema.parse(config.sampling ?? {}))
     ctx.plugin(faultPlugin, faultConfigSchema.parse(config.fault ?? {}))
     ctx.plugin(downtimePlugin)
+    // The window-policy surface: the exit dialog (answers a held close) and
+    // the 「窗口与退出」 settings page (the knobs behind ./window's policy).
+    ctx.plugin(exitPromptPlugin)
+    ctx.plugin(windowSettingsPlugin)
   },
 }
 

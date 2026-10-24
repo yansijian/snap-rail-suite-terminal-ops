@@ -18,6 +18,7 @@ import { TimerService as timerPlugin } from '@snap-rail/cordis-plugin-timer'
 import type {
   BallPatch,
   BallState,
+  ShellExitPolicy,
   ShellNotificationInput,
   ShellNotificationResult,
   ShellResult,
@@ -47,14 +48,15 @@ interface ShellLog {
   presented: string[]
   hidden: string[]
   balls: BallPatch[]
+  policies: Array<Partial<ShellExitPolicy>>
 }
 
 /** A recording Shell adapter: every seam call lands in the log, and the
  * surface state it reports reflects its own present/hide calls. */
 function fakeShell(log: ShellLog): ShellService {
   const entries: ShellTrayEntry[] = []
-  const visibility: Record<'main' | 'ball' | 'panel', boolean> = { main: true, ball: false, panel: false }
-  const availability: Record<'main' | 'ball' | 'panel', boolean> = { main: true, ball: true, panel: false }
+  const visibility: Record<'main' | 'ball', boolean> = { main: true, ball: false }
+  const availability: Record<'main' | 'ball', boolean> = { main: true, ball: true }
   let ball: BallState = { progress: null, label: null, tone: 'neutral' }
   return {
     available: true,
@@ -80,7 +82,7 @@ function fakeShell(log: ShellLog): ShellService {
     },
     surface: {
       state(): readonly SurfaceState[] {
-        return (['main', 'ball', 'panel'] as const).map(surface => ({
+        return (['main', 'ball'] as const).map(surface => ({
           surface,
           available: availability[surface],
           visible: visibility[surface],
@@ -105,6 +107,18 @@ function fakeShell(log: ShellLog): ShellService {
         return ball
       },
     },
+    window: {
+      setExitPolicy(_caller, policy): ShellResult {
+        log.policies.push(policy)
+        return { applied: true }
+      },
+      exitPolicy(): Readonly<ShellExitPolicy> {
+        return { close: 'quit', quit: 'quit' }
+      },
+      resolve(): ShellResult {
+        return { applied: true }
+      },
+    },
   }
 }
 
@@ -119,7 +133,9 @@ async function makeWorld(): Promise<{ host: Context, log: ShellLog }> {
   await host.plugin(settingsPlugin)
   await host.plugin(storePlugin)
   await host.plugin(timerPlugin)
-  const log: ShellLog = { trayAdded: [], trayUpdated: [], notifications: [], presented: [], hidden: [], balls: [] }
+  const log: ShellLog = {
+    trayAdded: [], trayUpdated: [], notifications: [], presented: [], hidden: [], balls: [], policies: [],
+  }
   host.provide('shell', fakeShell(log))
   await host.plugin(productionStatsPlugin, { flushMs: 1000 })
   return { host, log }
@@ -129,6 +145,9 @@ describe('the suite host face on the Shell seam', () => {
   it('contributes the ball toggle and the handover ack, and mirrors the count into the ball state', async () => {
     const { host, log } = await makeWorld()
     expect(log.trayAdded.map(item => item.id)).toEqual(['ball', 'handover'])
+    // The window policy ships with the suite: closing parks into the ball,
+    // and the tray's 退出 asks first (the declared defaults).
+    expect(log.policies.at(-1)).toEqual({ close: 'ball', quit: 'hold' })
 
     host.settings.set('session.operatorId', 'op-1')
     // Signing on anchors the shift and pushes the (empty) count into the

@@ -47,6 +47,7 @@ import {
 } from './contract.ts'
 import { dateOfShiftKey, shiftKeyOf, shiftOf, shiftOfKey } from './shift.ts'
 import { PRODUCTION_SCHEMA, anchor, hours, shifts } from './tables.ts'
+import windowPolicyPlugin from './window.ts'
 
 /** Settings key holding the signed-on operator (same source as station-rpc). */
 const OPERATOR_KEY = 'session.operatorId'
@@ -108,6 +109,9 @@ const productionStatsPlugin: Plugin.Object<ProductionStatsConfig> = {
     // adapter, and the counter must keep counting without a tray or a toast.
     const shell = ctx.get('shell') as ShellService | undefined
     const store = ctx.store.register(ctx, 'production_stats', PRODUCTION_SCHEMA)
+    // The window policy (close/tray-quit behavior) is this suite's decision;
+    // it rides the same host row as a child fiber.
+    ctx.plugin(windowPolicyPlugin)
 
     // All mutable state rides this apply-scope closure (the uiSlots lesson:
     // traceable context proxies rebind `this` on every method access).

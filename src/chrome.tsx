@@ -2,18 +2,21 @@
  * Resident frameless-window titlebar: logo and title on the left inside a
  * drag region; on the right the signed-on operator with sign-off, then the
  * settings button and minimize / maximize / close as full-height flush
- * buttons (no gaps to the top or right edges). Close asks for confirmation
- * first — the station is always mid-shift, an accidental click must not kill
- * the terminal. The settings button only raises the dialog (`open()`); its
- * contents live behind the settings seam.
+ * buttons (no gaps to the top or right edges). Close rides the host's exit
+ * policy through `window.control close` — the suite declares that policy
+ * (`./window`), and when it holds the close, the suite's own dialog
+ * (`./exit-prompt`) asks.
+ *
+ * The settings button only raises the dialog (`open()`); its contents live
+ * behind the settings seam.
  *
  * @module @snap-rail/suite-terminal-ops/chrome
  */
 
 import { Context, type Plugin } from '@snap-rail/cordis'
-import { Disc, LogOut, Minus, PanelRight, Settings, Square, X } from 'lucide-react'
-import { Fragment, useState, type ReactNode } from 'react'
-import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, useRefresh } from '@snap-rail/framework-shadcn/ui'
+import { Disc, LogOut, Minus, Settings, Square, X } from 'lucide-react'
+import { Fragment, type ReactNode } from 'react'
+import { Button, useRefresh } from '@snap-rail/framework-shadcn/ui'
 import '@snap-rail/framework-shadcn/slots'
 import { UI_SLOT_IDS } from '@snap-rail/framework-shadcn/slots'
 import '@snap-rail/framework-shadcn/runtime'
@@ -45,14 +48,12 @@ function LogoMark(): ReactNode {
 function Titlebar(props: {
   ctx: Context
   control: (action: Action) => void
-  presentSurface: (surface: 'ball' | 'panel') => void
+  presentSurface: (surface: 'ball') => void
 }): ReactNode {
-  const [confirming, setConfirming] = useState(false)
   // Slot-changed keeps the shell.titlebar.actions region (forge's AI button) live.
   useRefresh(props.ctx, ['session/changed', 'ui/slot-changed'])
 
   const operator = props.ctx.session.current()
-  const close = (): void => props.control('close')
 
   return (
     <div className="drag-region relative flex h-14 select-none items-stretch justify-between border-b border-border">
@@ -87,23 +88,14 @@ function Titlebar(props: {
           {props.ctx.uiSlots.list(UI_SLOT_IDS.titlebarActions).map(occupant => (
             <Fragment key={occupant.id}>{occupant.render()}</Fragment>
           ))}
-          {/* The auxiliary surfaces are operator-reachable from here: a
-           * renderer may ask the Shell to bring a window up, and `present` is
-           * idempotent (already on screen → no-op), so these are plain toggles
-           * into existence rather than stateful switches. */}
-          <Button
-            variant="ghost"
-            aria-label="悬浮面板"
-            title="悬浮面板（失焦自动收起）"
-            className="h-full w-14 rounded-none px-0"
-            onClick={() => props.presentSurface('panel')}
-          >
-            <PanelRight className="h-5 w-5" />
-          </Button>
+          {/* The floating ball is operator-reachable from here: a renderer may
+           * ask the Shell to bring the window up, and `present` is idempotent
+           * (already on screen → no-op). Presenting the ball also parks the
+           * operator window — the two exclude each other by the base's rule. */}
           <Button
             variant="ghost"
             aria-label="悬浮球"
-            title="悬浮球（可拖动，点击球心回主窗口）"
+            title="悬浮球（可拖动，靠边自动收起，点击球心回主窗口）"
             className="h-full w-14 rounded-none px-0"
             onClick={() => props.presentSurface('ball')}
           >
@@ -137,27 +129,12 @@ function Titlebar(props: {
             variant="ghost"
             aria-label="关闭"
             className="h-full w-14 rounded-none px-0 rounded-r-none hover:bg-destructive/20 hover:text-destructive"
-            onClick={() => setConfirming(true)}
+            onClick={() => props.control('close')}
           >
             <X className="h-5 w-5" />
           </Button>
         </div>
       </div>
-
-      <Dialog open={confirming} onOpenChange={setConfirming}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle className="text-lg font-medium">退出客户端？</DialogTitle>
-            <DialogDescription>
-              关闭后生产、抽检与异常记录入口将不可用；未提交的数据已随操作落盘。
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" size="lg" onClick={() => setConfirming(false)}>取消</Button>
-            <Button variant="destructive" size="lg" onClick={() => { setConfirming(false); close() }}>退出</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
@@ -174,7 +151,7 @@ const titlebarPlugin: Plugin.Object<void> = {
     }
     // Auxiliary-surface control rides the Shell wire contract (no Electron
     // here): the Shell creates the window on first present and keeps it.
-    const presentSurface = (surface: 'ball' | 'panel'): void => {
+    const presentSurface = (surface: 'ball'): void => {
       void ctx.client.link.call('shell.surface.present', { surface }).catch(() => {})
     }
     ctx.uiSlots.register(ctx, UI_SLOT_IDS.titlebar, {
