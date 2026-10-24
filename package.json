@@ -1,7 +1,7 @@
 {
   "name": "@snap-rail/suite-terminal-ops",
   "description": "The terminal-ops business suite: one package, one toggle — the whole renderer face of one industrial scenario (station layout + chrome + five process pages + counting settings) and its host-side shift counter (./stats, the durable production_stats store), snapRail.kind = suite",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "type": "module",
   "main": "lib/stats.js",
   "types": "lib/types/stats.d.ts",
@@ -36,29 +36,29 @@
     "@snap-rail/cordis": "^4.0.1",
     "@snap-rail/cordis-plugin-timer": "^1.1.3",
     "@snap-rail/equipment": "^0.1.0",
-    "@snap-rail/framework-shadcn": "^0.2.1",
+    "@snap-rail/framework-shadcn": "^0.2.2",
     "@snap-rail/gateway": "^0.1.0",
-    "@snap-rail/protocol": "^0.1.2",
+    "@snap-rail/protocol": "^0.1.3",
     "@snap-rail/settings": "^0.1.0",
-    "@snap-rail/shell": "^0.1.0",
+    "@snap-rail/shell": "^0.2.0",
     "@snap-rail/station-rpc": "^0.1.0",
     "@snap-rail/store": "^0.1.0",
     "react": ">=19"
   },
   "devDependencies": {
     "@snap-rail/audit": "^0.1.0",
-    "@snap-rail/client-kernel": "^0.1.1",
+    "@snap-rail/client-kernel": "^0.1.2",
     "@snap-rail/connection": "^0.1.0",
     "@snap-rail/cordis": "^4.0.1",
     "@snap-rail/cordis-plugin-timer": "^1.1.3",
     "@snap-rail/equipment": "^0.1.0",
-    "@snap-rail/framework-shadcn": "^0.2.1",
+    "@snap-rail/framework-shadcn": "^0.2.2",
     "@snap-rail/gateway": "^0.1.0",
     "@snap-rail/plugin-kit": "^0.2.2",
     "@snap-rail/plugin-sdk": "^0.2.0",
-    "@snap-rail/protocol": "^0.1.2",
+    "@snap-rail/protocol": "^0.1.3",
     "@snap-rail/settings": "^0.1.0",
-    "@snap-rail/shell": "^0.1.0",
+    "@snap-rail/shell": "^0.2.1",
     "@snap-rail/station-rpc": "^0.1.0",
     "@snap-rail/store": "^0.1.0",
     "@snap-rail/store-sqlite": "^0.1.0",
@@ -87,11 +87,9 @@
     "client": {
       "entry": "lib-client/client.js",
       "surfaces": {
-        "ball": "lib-client/ball.js",
-        "panel": "lib-client/panel.js"
+        "ball": "lib-client/ball.js"
       }
     },
     "title": "生产作业套件"
   }
 }
-
